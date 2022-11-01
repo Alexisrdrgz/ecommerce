@@ -1,0 +1,46 @@
+"use strict";
+/*
+ * ATTENTION: An "eval-source-map" devtool has been used.
+ * This devtool is neither made for production nor for readable output files.
+ * It uses "eval()" calls to create a separate source file with attached SourceMaps in the browser devtools.
+ * If you are trying to read the output file, select a different devtool (https://webpack.js.org/configuration/devtool/)
+ * or disable the default devtool with "devtool: false".
+ * If you are looking for production-ready output files, see mode: "production" (https://webpack.js.org/configuration/mode/).
+ */
+(() => {
+var exports = {};
+exports.id = "pages/api/stripe";
+exports.ids = ["pages/api/stripe"];
+exports.modules = {
+
+/***/ "stripe":
+/*!*************************!*\
+  !*** external "stripe" ***!
+  \*************************/
+/***/ ((module) => {
+
+module.exports = require("stripe");
+
+/***/ }),
+
+/***/ "(api)/./pages/api/stripe.js":
+/*!*****************************!*\
+  !*** ./pages/api/stripe.js ***!
+  \*****************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => (/* binding */ handler)\n/* harmony export */ });\n/* harmony import */ var stripe__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! stripe */ \"stripe\");\n/* harmony import */ var stripe__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(stripe__WEBPACK_IMPORTED_MODULE_0__);\n\nconst stripe = new (stripe__WEBPACK_IMPORTED_MODULE_0___default())(\"sk_test_51LyeW9HOMu3tc9TPdis8CVtNWEKfw9XqbQk2eSRZv13T2DMVMsk65YLfzZsUttY7uHxQhEJXiPhh6EIHOx4ioqp000hGg6FBSS\");\nasync function handler(req, res) {\n  if (req.method === 'POST') {\n    try {\n      const params = {\n        submit_type: 'pay',\n        mode: 'payment',\n        payment_method_types: ['card'],\n        billing_address_collection: 'auto',\n        shipping_options: [{\n          shipping_rate: 'shr_1LyeggHOMu3tc9TPGQ0BCUxa'\n        }],\n        line_items: req.body.map(item => {\n          const img = item.image[0].asset._ref;\n          const newImage = img.replace('image-', 'https://cdn.sanity.io/images/58od83rq/production/').replace('-webp', '.webp');\n          return {\n            price_data: {\n              currency: 'usd',\n              product_data: {\n                name: item.name,\n                images: [newImage]\n              },\n              unit_amount: item.price * 100\n            },\n            adjustable_quantity: {\n              enabled: true,\n              minimum: 1\n            },\n            quantity: item.quantity\n          };\n        }),\n        success_url: `${req.headers.origin}/success`,\n        cancel_url: `${req.headers.origin}/canceled`\n      }; // Create Checkout Sessions from body params.\n\n      const session = await stripe.checkout.sessions.create(params);\n      res.status(200).json(session);\n    } catch (err) {\n      res.status(err.statusCode || 500).json(err.message);\n    }\n  } else {\n    res.setHeader('Allow', 'POST');\n    res.status(405).end('Method Not Allowed');\n  }\n}//# sourceURL=[module]\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiKGFwaSkvLi9wYWdlcy9hcGkvc3RyaXBlLmpzLmpzIiwibWFwcGluZ3MiOiI7Ozs7OztBQUFBO0FBRUEsTUFBTUMsTUFBTSxHQUFHLElBQUlELCtDQUFKLENBQVdFLDZHQUFYLENBQWY7QUFFZSxlQUFlRyxPQUFmLENBQXVCQyxHQUF2QixFQUE0QkMsR0FBNUIsRUFBaUM7QUFDOUMsTUFBSUQsR0FBRyxDQUFDRSxNQUFKLEtBQWUsTUFBbkIsRUFBMkI7QUFDekIsUUFBSTtBQUNGLFlBQU1DLE1BQU0sR0FBRztBQUNiQyxRQUFBQSxXQUFXLEVBQUUsS0FEQTtBQUViQyxRQUFBQSxJQUFJLEVBQUUsU0FGTztBQUdiQyxRQUFBQSxvQkFBb0IsRUFBRSxDQUFDLE1BQUQsQ0FIVDtBQUliQyxRQUFBQSwwQkFBMEIsRUFBRSxNQUpmO0FBS2JDLFFBQUFBLGdCQUFnQixFQUFFLENBQ2hCO0FBQUVDLFVBQUFBLGFBQWEsRUFBRTtBQUFqQixTQURnQixDQUxMO0FBUWJDLFFBQUFBLFVBQVUsRUFBRVYsR0FBRyxDQUFDVyxJQUFKLENBQVNDLEdBQVQsQ0FBY0MsSUFBRCxJQUFVO0FBQ2pDLGdCQUFNQyxHQUFHLEdBQUdELElBQUksQ0FBQ0UsS0FBTCxDQUFXLENBQVgsRUFBY0MsS0FBZCxDQUFvQkMsSUFBaEM7QUFDQSxnQkFBTUMsUUFBUSxHQUFHSixHQUFHLENBQUNLLE9BQUosQ0FBWSxRQUFaLEVBQXNCLG1EQUF0QixFQUEyRUEsT0FBM0UsQ0FBbUYsT0FBbkYsRUFBNEYsT0FBNUYsQ0FBakI7QUFFQSxpQkFBTztBQUNMQyxZQUFBQSxVQUFVLEVBQUU7QUFDVkMsY0FBQUEsUUFBUSxFQUFFLEtBREE7QUFFVkMsY0FBQUEsWUFBWSxFQUFFO0FBQ1pDLGdCQUFBQSxJQUFJLEVBQUVWLElBQUksQ0FBQ1UsSUFEQztBQUVaQyxnQkFBQUEsTUFBTSxFQUFFLENBQUNOLFFBQUQ7QUFGSSxlQUZKO0FBTVZPLGNBQUFBLFdBQVcsRUFBRVosSUFBSSxDQUFDYSxLQUFMLEdBQWE7QUFOaEIsYUFEUDtBQVNMQyxZQUFBQSxtQkFBbUIsRUFBRTtBQUNuQkMsY0FBQUEsT0FBTyxFQUFDLElBRFc7QUFFbkJDLGNBQUFBLE9BQU8sRUFBRTtBQUZVLGFBVGhCO0FBYUxDLFlBQUFBLFFBQVEsRUFBRWpCLElBQUksQ0FBQ2lCO0FBYlYsV0FBUDtBQWVELFNBbkJXLENBUkM7QUE0QmJDLFFBQUFBLFdBQVcsRUFBRyxHQUFFL0IsR0FBRyxDQUFDZ0MsT0FBSixDQUFZQyxNQUFPLFVBNUJ0QjtBQTZCYkMsUUFBQUEsVUFBVSxFQUFHLEdBQUVsQyxHQUFHLENBQUNnQyxPQUFKLENBQVlDLE1BQU87QUE3QnJCLE9BQWYsQ0FERSxDQWlDRjs7QUFDQSxZQUFNRSxPQUFPLEdBQUcsTUFBTXhDLE1BQU0sQ0FBQ3lDLFFBQVAsQ0FBZ0JDLFFBQWhCLENBQXlCQyxNQUF6QixDQUFnQ25DLE1BQWhDLENBQXRCO0FBRUFGLE1BQUFBLEdBQUcsQ0FBQ3NDLE1BQUosQ0FBVyxHQUFYLEVBQWdCQyxJQUFoQixDQUFxQkwsT0FBckI7QUFDRCxLQXJDRCxDQXFDRSxPQUFPTSxHQUFQLEVBQVk7QUFDWnhDLE1BQUFBLEdBQUcsQ0FBQ3NDLE1BQUosQ0FBV0UsR0FBRyxDQUFDQyxVQUFKLElBQWtCLEdBQTdCLEVBQWtDRixJQUFsQyxDQUF1Q0MsR0FBRyxDQUFDRSxPQUEzQztBQUNEO0FBQ0YsR0F6Q0QsTUF5Q087QUFDTDFDLElBQUFBLEdBQUcsQ0FBQzJDLFNBQUosQ0FBYyxPQUFkLEVBQXVCLE1BQXZCO0FBQ0EzQyxJQUFBQSxHQUFHLENBQUNzQyxNQUFKLENBQVcsR0FBWCxFQUFnQk0sR0FBaEIsQ0FBb0Isb0JBQXBCO0FBQ0Q7QUFDRiIsInNvdXJjZXMiOlsid2VicGFjazovL2Vjb21tZXJjZS8uL3BhZ2VzL2FwaS9zdHJpcGUuanM/ZDc4OCJdLCJzb3VyY2VzQ29udGVudCI6WyJpbXBvcnQgU3RyaXBlIGZyb20gJ3N0cmlwZSc7XHJcblxyXG5jb25zdCBzdHJpcGUgPSBuZXcgU3RyaXBlKHByb2Nlc3MuZW52Lk5FWFRfUFVCTElDX1NUUklQRV9TRUNSRVRfS0VZKTtcclxuXHJcbmV4cG9ydCBkZWZhdWx0IGFzeW5jIGZ1bmN0aW9uIGhhbmRsZXIocmVxLCByZXMpIHtcclxuICBpZiAocmVxLm1ldGhvZCA9PT0gJ1BPU1QnKSB7XHJcbiAgICB0cnkge1xyXG4gICAgICBjb25zdCBwYXJhbXMgPSB7XHJcbiAgICAgICAgc3VibWl0X3R5cGU6ICdwYXknLFxyXG4gICAgICAgIG1vZGU6ICdwYXltZW50JyxcclxuICAgICAgICBwYXltZW50X21ldGhvZF90eXBlczogWydjYXJkJ10sXHJcbiAgICAgICAgYmlsbGluZ19hZGRyZXNzX2NvbGxlY3Rpb246ICdhdXRvJyxcclxuICAgICAgICBzaGlwcGluZ19vcHRpb25zOiBbXHJcbiAgICAgICAgICB7IHNoaXBwaW5nX3JhdGU6ICdzaHJfMUx5ZWdnSE9NdTN0YzlUUEdRMEJDVXhhJyB9LFxyXG4gICAgICAgIF0sXHJcbiAgICAgICAgbGluZV9pdGVtczogcmVxLmJvZHkubWFwKChpdGVtKSA9PiB7XHJcbiAgICAgICAgICBjb25zdCBpbWcgPSBpdGVtLmltYWdlWzBdLmFzc2V0Ll9yZWY7XHJcbiAgICAgICAgICBjb25zdCBuZXdJbWFnZSA9IGltZy5yZXBsYWNlKCdpbWFnZS0nLCAnaHR0cHM6Ly9jZG4uc2FuaXR5LmlvL2ltYWdlcy81OG9kODNycS9wcm9kdWN0aW9uLycpLnJlcGxhY2UoJy13ZWJwJywgJy53ZWJwJyk7XHJcblxyXG4gICAgICAgICAgcmV0dXJuIHtcclxuICAgICAgICAgICAgcHJpY2VfZGF0YTogeyBcclxuICAgICAgICAgICAgICBjdXJyZW5jeTogJ3VzZCcsXHJcbiAgICAgICAgICAgICAgcHJvZHVjdF9kYXRhOiB7IFxyXG4gICAgICAgICAgICAgICAgbmFtZTogaXRlbS5uYW1lLFxyXG4gICAgICAgICAgICAgICAgaW1hZ2VzOiBbbmV3SW1hZ2VdLFxyXG4gICAgICAgICAgICAgIH0sXHJcbiAgICAgICAgICAgICAgdW5pdF9hbW91bnQ6IGl0ZW0ucHJpY2UgKiAxMDAsXHJcbiAgICAgICAgICAgIH0sXHJcbiAgICAgICAgICAgIGFkanVzdGFibGVfcXVhbnRpdHk6IHtcclxuICAgICAgICAgICAgICBlbmFibGVkOnRydWUsXHJcbiAgICAgICAgICAgICAgbWluaW11bTogMSxcclxuICAgICAgICAgICAgfSxcclxuICAgICAgICAgICAgcXVhbnRpdHk6IGl0ZW0ucXVhbnRpdHlcclxuICAgICAgICAgIH1cclxuICAgICAgICB9KSxcclxuICAgICAgICBzdWNjZXNzX3VybDogYCR7cmVxLmhlYWRlcnMub3JpZ2lufS9zdWNjZXNzYCxcclxuICAgICAgICBjYW5jZWxfdXJsOiBgJHtyZXEuaGVhZGVycy5vcmlnaW59L2NhbmNlbGVkYCxcclxuICAgICAgfVxyXG5cclxuICAgICAgLy8gQ3JlYXRlIENoZWNrb3V0IFNlc3Npb25zIGZyb20gYm9keSBwYXJhbXMuXHJcbiAgICAgIGNvbnN0IHNlc3Npb24gPSBhd2FpdCBzdHJpcGUuY2hlY2tvdXQuc2Vzc2lvbnMuY3JlYXRlKHBhcmFtcyk7XHJcblxyXG4gICAgICByZXMuc3RhdHVzKDIwMCkuanNvbihzZXNzaW9uKTtcclxuICAgIH0gY2F0Y2ggKGVycikge1xyXG4gICAgICByZXMuc3RhdHVzKGVyci5zdGF0dXNDb2RlIHx8IDUwMCkuanNvbihlcnIubWVzc2FnZSk7XHJcbiAgICB9XHJcbiAgfSBlbHNlIHtcclxuICAgIHJlcy5zZXRIZWFkZXIoJ0FsbG93JywgJ1BPU1QnKTtcclxuICAgIHJlcy5zdGF0dXMoNDA1KS5lbmQoJ01ldGhvZCBOb3QgQWxsb3dlZCcpO1xyXG4gIH1cclxufSJdLCJuYW1lcyI6WyJTdHJpcGUiLCJzdHJpcGUiLCJwcm9jZXNzIiwiZW52IiwiTkVYVF9QVUJMSUNfU1RSSVBFX1NFQ1JFVF9LRVkiLCJoYW5kbGVyIiwicmVxIiwicmVzIiwibWV0aG9kIiwicGFyYW1zIiwic3VibWl0X3R5cGUiLCJtb2RlIiwicGF5bWVudF9tZXRob2RfdHlwZXMiLCJiaWxsaW5nX2FkZHJlc3NfY29sbGVjdGlvbiIsInNoaXBwaW5nX29wdGlvbnMiLCJzaGlwcGluZ19yYXRlIiwibGluZV9pdGVtcyIsImJvZHkiLCJtYXAiLCJpdGVtIiwiaW1nIiwiaW1hZ2UiLCJhc3NldCIsIl9yZWYiLCJuZXdJbWFnZSIsInJlcGxhY2UiLCJwcmljZV9kYXRhIiwiY3VycmVuY3kiLCJwcm9kdWN0X2RhdGEiLCJuYW1lIiwiaW1hZ2VzIiwidW5pdF9hbW91bnQiLCJwcmljZSIsImFkanVzdGFibGVfcXVhbnRpdHkiLCJlbmFibGVkIiwibWluaW11bSIsInF1YW50aXR5Iiwic3VjY2Vzc191cmwiLCJoZWFkZXJzIiwib3JpZ2luIiwiY2FuY2VsX3VybCIsInNlc3Npb24iLCJjaGVja291dCIsInNlc3Npb25zIiwiY3JlYXRlIiwic3RhdHVzIiwianNvbiIsImVyciIsInN0YXR1c0NvZGUiLCJtZXNzYWdlIiwic2V0SGVhZGVyIiwiZW5kIl0sInNvdXJjZVJvb3QiOiIifQ==\n//# sourceURL=webpack-internal:///(api)/./pages/api/stripe.js\n");
+
+/***/ })
+
+};
+;
+
+// load runtime
+var __webpack_require__ = require("../../webpack-api-runtime.js");
+__webpack_require__.C(exports);
+var __webpack_exec__ = (moduleId) => (__webpack_require__(__webpack_require__.s = moduleId))
+var __webpack_exports__ = (__webpack_exec__("(api)/./pages/api/stripe.js"));
+module.exports = __webpack_exports__;
+
+})();
